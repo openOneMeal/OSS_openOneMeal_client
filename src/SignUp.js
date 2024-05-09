@@ -135,7 +135,7 @@ const SignUp = () => {
                         <p>비밀번호 확인</p>
                         <TextField
                             value={sendData.repeatPassword}
-                            label="repeatPassword"
+                            label="비밀번호 확인"
                             type="password"
                             required
                             name="repeatPassword"
