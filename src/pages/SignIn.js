@@ -87,7 +87,7 @@ const SignIn = () => {
                     <div className="email_textfield">
                         <TextField
                             value={sendData.email}
-                            label="Email"
+                            label="이메일"
                             required
                             name="email"
                             autoComplete="email"
@@ -110,7 +110,7 @@ const SignIn = () => {
                     <div className="password_textfield">
                         <TextField
                             value={sendData.password}
-                            label="Password"
+                            label="비밀번호"
                             type="password"
                             required
                             name="password"
