@@ -102,7 +102,7 @@ const SignIn = () => {
                             }}
                             helperText={
                                 emailErrors && sendData.email !== ""
-                                    ? "Correct email is required"
+                                    ? "이메일 형식을 지켜주세요"
                                     : null
                             }
                         />
@@ -125,7 +125,7 @@ const SignIn = () => {
                             }}
                             helperText={
                                 passwordErrors && sendData.password !== ""
-                                    ? "Correct password is required"
+                                    ? "비밀번호 형식을 지켜주세요"
                                     : null
                             }
                         />
@@ -142,7 +142,7 @@ const SignIn = () => {
                     </Button>
                 </form>
                 <Grid className="signup_link">
-                    Not a member yet? <Link to="/SignUp">Sign up</Link>
+                    아이디가 없으신가요? <Link to="/SignUp">Sign up</Link>
                 </Grid>
             </div>
         </div>
