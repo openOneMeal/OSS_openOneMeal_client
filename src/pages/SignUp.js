@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { RadioGroup, Radio } from "@mui/material";
+import Modal from "@mui/material/Modal";
+import { useNavigate } from "react-router-dom";
 
 const initialSendData = {
     email: "",
@@ -24,14 +26,33 @@ const SignUp = () => {
 
     const [isSuccess, setIsSuccess] = useState(false);
     const [sendData, setSendData] = useState(initialSendData);
+    const [showModal, setShowModal] = useState(false);
 
-    const validateField = (value, regex) => {
-        return regex.test(value);
+    const validateEmail = (email) =>
+        /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
+
+    const validatePassword = (password) =>
+        /^(?=.*[!@#$%^&*(),.?":{}|<>])(?=.*[0-9])(?=.*[a-zA-Z]).{8,}$/.test(
+            password
+        );
+
+    const validateField = (name, value) => {
+        switch (name) {
+            case "email":
+                return validateEmail(value);
+            case "password":
+            case "repeatPassword":
+                return validatePassword(value);
+            case "name":
+                return /^[가-힣a-zA-Z]+$/.test(value);
+            default:
+                return true;
+        }
     };
 
-    const checkField = (e, regex) => {
+    const checkField = (e) => {
         const { name, value } = e.target;
-        const isValid = validateField(value, regex);
+        const isValid = validateField(name, value);
         setErrors((prevErrors) => ({
             ...prevErrors,
             [name]: !isValid,
@@ -48,9 +69,22 @@ const SignUp = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Perform additional validation if needed
-        setIsSuccess(true);
+        const isValidForm = Object.values(errors).every((error) => !error);
+        if (isValidForm) {
+            // 서버 요청 전송 코드 추가
+            // 성공 시
+            setIsSuccess(true);
+            setShowModal(true);
+        }
     };
+
+    const closeModal = () => {
+        setShowModal(false);
+        nav("/");
+        // 성공 모달 닫은 후 다른 작업 수행
+    };
+
+    const nav = useNavigate();
 
     return (
         <div className="SignUp">
@@ -72,7 +106,7 @@ const SignUp = () => {
                             fullWidth
                             autoFocus
                             error={errors.name && sendData.name !== ""}
-                            onChange={(e) => checkField(e, /^[가-힣a-zA-Z]+$/)}
+                            onChange={checkField}
                             helperText={
                                 errors.name && sendData.name !== ""
                                     ? "올바른 이름을 입력하세요"
@@ -92,12 +126,7 @@ const SignUp = () => {
                             fullWidth
                             autoFocus
                             error={errors.email && sendData.email !== ""}
-                            onChange={(e) =>
-                                checkField(
-                                    e,
-                                    /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
-                                )
-                            }
+                            onChange={checkField}
                             helperText={
                                 errors.email && sendData.email !== ""
                                     ? "올바른 이메일을 입력하세요"
@@ -118,12 +147,7 @@ const SignUp = () => {
                             fullWidth
                             autoFocus
                             error={errors.password && sendData.password !== ""}
-                            onChange={(e) =>
-                                checkField(
-                                    e,
-                                    /^(?=.*[!@#$%^&*(),.?":{}|<>])(?=.*[0-9])(?=.*[a-zA-Z]).{8,}$/
-                                )
-                            }
+                            onChange={checkField}
                             helperText={
                                 errors.password && sendData.password !== ""
                                     ? "특수 문자, 숫자를 포함하여 8자 이상이어야 합니다"
@@ -147,12 +171,7 @@ const SignUp = () => {
                                 errors.repeatPassword &&
                                 sendData.repeatPassword !== ""
                             }
-                            onChange={(e) =>
-                                checkField(
-                                    e,
-                                    /^(?=.*[!@#$%^&*(),.?":{}|<>])(?=.*[0-9])(?=.*[a-zA-Z]).{8,}$/
-                                )
-                            }
+                            onChange={checkField}
                             helperText={
                                 errors.repeatPassword &&
                                 sendData.repeatPassword !== ""
@@ -210,6 +229,16 @@ const SignUp = () => {
                     이미 계정이 있으신가요???{" "}
                     <Link to="/">로그인하러 가기</Link>{" "}
                 </Grid>
+                <Modal
+                    open={showModal}
+                    onClose={closeModal}
+                    aria-labelledby="login-success-modal"
+                >
+                    <div className="modal-content">
+                        <h2 id="login-success-modal">가입이 완료되었습니다!</h2>
+                        <Button onClick={closeModal}>닫기</Button>
+                    </div>
+                </Modal>
             </div>
         </div>
     );
