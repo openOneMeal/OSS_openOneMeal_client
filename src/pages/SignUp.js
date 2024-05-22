@@ -67,14 +67,33 @@ const SignUp = () => {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const isValidForm = Object.values(errors).every((error) => !error);
         if (isValidForm) {
-            // 서버 요청 전송 코드 추가
-            // 성공 시
-            setIsSuccess(true);
-            setShowModal(true);
+            try {
+                const response = await fetch(
+                    "http://your-server-url/api/signup",
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(sendData),
+                    }
+                );
+
+                if (response.ok) {
+                    // 서버 요청 성공 시
+                    setIsSuccess(true);
+                    setShowModal(true);
+                } else {
+                    // 서버 요청 실패 시
+                    console.error("회원가입에 실패했습니다.");
+                }
+            } catch (error) {
+                console.error("서버와 통신 중 오류가 발생했습니다.", error);
+            }
         }
     };
 
@@ -124,7 +143,6 @@ const SignUp = () => {
                             margin="normal"
                             color="secondary"
                             fullWidth
-                            autoFocus
                             error={errors.email && sendData.email !== ""}
                             onChange={checkField}
                             helperText={
@@ -145,7 +163,6 @@ const SignUp = () => {
                             margin="normal"
                             color="secondary"
                             fullWidth
-                            autoFocus
                             error={errors.password && sendData.password !== ""}
                             onChange={checkField}
                             helperText={
@@ -166,7 +183,6 @@ const SignUp = () => {
                             margin="normal"
                             color="secondary"
                             fullWidth
-                            autoFocus
                             error={
                                 errors.repeatPassword &&
                                 sendData.repeatPassword !== ""
@@ -187,7 +203,6 @@ const SignUp = () => {
                             aria-labelledby="demo-radio-buttons-group-label"
                             name="gender"
                             color="secondary"
-                            defaultValue="CT"
                             value={sendData.gender}
                             onChange={(e) =>
                                 setSendData({
