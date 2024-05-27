@@ -103,15 +103,19 @@ const SignUp = () => {
                     setModalTitle("회원가입에 성공하셨습니다.");
                     setModalText("로그인을 해주세요.");
                     setShowModal(true);
-                } else if (response.status === 409) {
-                    setModalTitle("이미 존재하는 이메일입니다.");
-                    setModalText("다른 이메일을 사용해주세요.");
-                    setShowModal(true);
                 } else {
                     console.error("회원가입에 실패했습니다.");
                 }
             } catch (error) {
-                console.error("서버와 통신 중 오류가 발생했습니다.", error);
+                if (error.response.status === 409) {
+                    setModalTitle("이미 존재하는 이메일입니다.");
+                    setModalText("다른 이메일을 사용해주세요.");
+                    setShowModal(true);
+                } else {
+                    setModalTitle("서버 오류가 발생했습니다.");
+                    setModalText("다시 시도해주세요.");
+                    setShowModal(true);
+                }
             }
         }
     };
