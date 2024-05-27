@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import { Link } from "react-router-dom";
@@ -124,10 +124,13 @@ const SignUp = () => {
 
     const closeModal = () => {
         setShowModal(false);
-        if (shouldNavigate) {
+    };
+
+    useEffect(() => {
+        if (!showModal && shouldNavigate) {
             nav("/");
         }
-    };
+    }, [showModal, shouldNavigate, nav]);
 
     return (
         <div className="SignUp">
