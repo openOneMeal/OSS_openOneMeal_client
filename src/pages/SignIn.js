@@ -5,6 +5,8 @@ import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
+import BasicModal from "../components/BasicModal";
+
 const SignIn = () => {
     const [emailErrors, setEmailErrors] = useState(true);
     const [passwordErrors, setPasswordErrors] = useState(true);
@@ -13,7 +15,14 @@ const SignIn = () => {
         password: "",
     });
 
+    const [showModal, setShowModal] = useState(false);
+
     const nav = useNavigate();
+
+    const closeModal = () => {
+        setShowModal(false);
+        nav("/");
+    };
 
     const onchange = (e) => {
         setSendData({
@@ -48,10 +57,10 @@ const SignIn = () => {
                     state: { userEmail: sendData.email },
                 });
             } else if (response.data.status === 401) {
-                //올바르게 입력하라는 모달창 띄우기
+                setShowModal(true);
             }
         } catch (error) {
-            //로그인 중에 오류가 났다고 모달창 띄우기
+            setShowModal(true);
         }
     };
 
@@ -144,6 +153,12 @@ const SignIn = () => {
                 <Grid className="signup_link">
                     아이디가 없으신가요? <Link to="/SignUp">Sign up</Link>
                 </Grid>
+                <BasicModal
+                    text={"로그인에 실패했습니다."}
+                    title={"올바른 이메일과 비밀번호를 입력하세요."}
+                    open={showModal}
+                    closeModal={closeModal}
+                />
             </div>
         </div>
     );

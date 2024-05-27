@@ -29,7 +29,7 @@ const BtnWrapper = styled(Button)`
     }
 `;
 
-export default function SignupModal({ open, closeModal }) {
+const BasicModal = ({ text, title, open, closeModal }) => {
     return (
         <div>
             <Modal
@@ -44,14 +44,16 @@ export default function SignupModal({ open, closeModal }) {
                         variant="h6"
                         component="h2"
                     >
-                        가입에 성공하셨습니다!
+                        {title}
                     </Typography>
                     <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        로그인을 해주시기 바랍니다.
+                        {text}
                     </Typography>
                     <BtnWrapper onClick={closeModal}>확인</BtnWrapper>
                 </BoxWrapper>
             </Modal>
         </div>
     );
-}
+};
+
+export default BasicModal;
