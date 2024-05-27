@@ -6,8 +6,8 @@ import Button from "@mui/material/Button";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { RadioGroup, Radio } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import SignupModal from "../components/SignupModal";
 import axios from "axios";
+import BasicModal from "../components/BasicModal";
 
 const initialSendData = {
     email: "",
@@ -97,7 +97,7 @@ const SignUp = () => {
                     }
                 );
 
-                if (response.status === 200) {
+                if (response.status === 201) {
                     setShowModal(true);
                 } else {
                     console.error("회원가입에 실패했습니다.");
@@ -253,7 +253,12 @@ const SignUp = () => {
                     이미 계정이 있으신가요???{" "}
                     <Link to="/">로그인하러 가기</Link>{" "}
                 </Grid>
-                <SignupModal open={showModal} closeModal={closeModal} />
+                <BasicModal
+                    text={"로그인을 해주시기 바랍니다."}
+                    title={"가입에 성공하셨습니다!"}
+                    open={showModal}
+                    closeModal={closeModal}
+                />
             </div>
         </div>
     );
