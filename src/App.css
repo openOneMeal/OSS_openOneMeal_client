@@ -69,3 +69,22 @@ p {
 .submit_button {
     padding: 20px;
 }
+
+.box {
+    position: "absolute";
+    top: "50%";
+    left: "50%";
+    transform: "translate(-50%; -50%)";
+    width: 400;
+    background-color: "background.paper";
+    border: "3px solid purple";
+    box-shadow: 24;
+    border-radius: "15px";
+}
+
+.btn {
+    background-color: "black";
+    display: "flex";
+    align-items: "right";
+    text-align: "right";
+}

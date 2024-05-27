@@ -5,8 +5,9 @@ import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { RadioGroup, Radio } from "@mui/material";
-import Modal from "@mui/material/Modal";
 import { useNavigate } from "react-router-dom";
+import SignupModal from "../components/SignupModal";
+import axios from "axios";
 
 const initialSendData = {
     email: "",
@@ -17,6 +18,8 @@ const initialSendData = {
 };
 
 const SignUp = () => {
+    const nav = useNavigate();
+
     const [errors, setErrors] = useState({
         name: true,
         email: true,
@@ -24,7 +27,6 @@ const SignUp = () => {
         repeatPassword: true,
     });
 
-    const [isSuccess, setIsSuccess] = useState(false);
     const [sendData, setSendData] = useState(initialSendData);
     const [showModal, setShowModal] = useState(false);
 
@@ -67,28 +69,37 @@ const SignUp = () => {
         }));
     };
 
+    const isFormValid = () => {
+        return (
+            !errors.name &&
+            !errors.email &&
+            !errors.password &&
+            !errors.repeatPassword &&
+            sendData.name &&
+            sendData.email &&
+            sendData.password &&
+            sendData.repeatPassword &&
+            sendData.gender
+        );
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const isValidForm = Object.values(errors).every((error) => !error);
-        if (isValidForm) {
+        if (isFormValid()) {
             try {
-                const response = await fetch(
-                    "http://your-server-url/api/signup",
+                const response = await axios.post(
+                    "https://open-one-meal-server-e0778adebef6.herokuapp.com/api/signup",
+                    sendData,
                     {
-                        method: "POST",
                         headers: {
                             "Content-Type": "application/json",
                         },
-                        body: JSON.stringify(sendData),
                     }
                 );
 
-                if (response.ok) {
-                    // 서버 요청 성공 시
-                    setIsSuccess(true);
+                if (response.status === 200) {
                     setShowModal(true);
                 } else {
-                    // 서버 요청 실패 시
                     console.error("회원가입에 실패했습니다.");
                 }
             } catch (error) {
@@ -100,10 +111,7 @@ const SignUp = () => {
     const closeModal = () => {
         setShowModal(false);
         nav("/");
-        // 성공 모달 닫은 후 다른 작업 수행
     };
-
-    const nav = useNavigate();
 
     return (
         <div className="SignUp">
@@ -235,6 +243,7 @@ const SignUp = () => {
                         fullWidth
                         variant="contained"
                         color="secondary"
+                        disabled={!isFormValid()}
                         sx={{ mt: 3, mb: 2 }}
                     >
                         가입하기
@@ -244,16 +253,7 @@ const SignUp = () => {
                     이미 계정이 있으신가요???{" "}
                     <Link to="/">로그인하러 가기</Link>{" "}
                 </Grid>
-                <Modal
-                    open={showModal}
-                    onClose={closeModal}
-                    aria-labelledby="login-success-modal"
-                >
-                    <div className="modal-content">
-                        <h2 id="login-success-modal">가입이 완료되었습니다!</h2>
-                        <Button onClick={closeModal}>닫기</Button>
-                    </div>
-                </Modal>
+                <SignupModal open={showModal} closeModal={closeModal} />
             </div>
         </div>
     );
