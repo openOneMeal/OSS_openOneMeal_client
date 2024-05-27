@@ -29,6 +29,8 @@ const SignUp = () => {
 
     const [sendData, setSendData] = useState(initialSendData);
     const [showModal, setShowModal] = useState(false);
+    const [modalText, setModalText] = useState("");
+    const [modalTitle, setModalTitle] = useState("");
 
     const validateEmail = (email) =>
         /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
@@ -98,6 +100,12 @@ const SignUp = () => {
                 );
 
                 if (response.status === 201) {
+                    setModalTitle("회원가입에 성공하셨습니다.");
+                    setModalText("로그인을 해주세요.");
+                    setShowModal(true);
+                } else if (response.status === 409) {
+                    setModalTitle("이미 존재하는 이메일입니다.");
+                    setModalText("다른 이메일을 사용해주세요.");
                     setShowModal(true);
                 } else {
                     console.error("회원가입에 실패했습니다.");
@@ -254,8 +262,8 @@ const SignUp = () => {
                     <Link to="/">로그인하러 가기</Link>{" "}
                 </Grid>
                 <BasicModal
-                    text={"로그인을 해주시기 바랍니다."}
-                    title={"가입에 성공하셨습니다!"}
+                    text={modalText}
+                    title={modalTitle}
                     open={showModal}
                     closeModal={closeModal}
                 />
