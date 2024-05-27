@@ -31,6 +31,7 @@ const SignUp = () => {
     const [showModal, setShowModal] = useState(false);
     const [modalText, setModalText] = useState("");
     const [modalTitle, setModalTitle] = useState("");
+    const [shouldNavigate, setShouldNavigate] = useState(false);
 
     const validateEmail = (email) =>
         /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
@@ -102,27 +103,30 @@ const SignUp = () => {
                 if (response.status === 201) {
                     setModalTitle("회원가입에 성공하셨습니다.");
                     setModalText("로그인을 해주세요.");
+                    setShouldNavigate(true);
                     setShowModal(true);
                 } else {
                     console.error("회원가입에 실패했습니다.");
                 }
             } catch (error) {
-                if (error.response.status === 409) {
+                if (error.response && error.response.status === 409) {
                     setModalTitle("이미 존재하는 이메일입니다.");
                     setModalText("다른 이메일을 사용해주세요.");
-                    setShowModal(true);
                 } else {
                     setModalTitle("서버 오류가 발생했습니다.");
                     setModalText("다시 시도해주세요.");
-                    setShowModal(true);
                 }
+                setShouldNavigate(false);
+                setShowModal(true);
             }
         }
     };
 
     const closeModal = () => {
         setShowModal(false);
-        nav("/");
+        if (shouldNavigate) {
+            nav("/");
+        }
     };
 
     return (
