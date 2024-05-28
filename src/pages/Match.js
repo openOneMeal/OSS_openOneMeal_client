@@ -10,7 +10,7 @@ const Match = ({ userEmail }) => {
       const response = await axios.put('/api/match', { email: userEmail });
       if (response.status === 200) {
         alert('매칭 완료');
-        navigate('/chat', {
+        nav('/chat', {
           state: { userEmail: userEmail },
         });
       }

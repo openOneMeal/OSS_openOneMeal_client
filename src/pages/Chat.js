@@ -4,12 +4,11 @@ import io from 'socket.io-client';
 const Chat = ({ userEmail }) => {
     const [messages, setMessages] = useState([]);
     const [input, setInput] = useState('');
-
-    useEffect(() => {
-        const socket = io('https://open-one-meal-server-e0778adebef6.herokuapp.com', {
+    const socket = io('https://open-one-meal-server-e0778adebef6.herokuapp.com', {
             query: { email: userEmail }
         });
 
+    useEffect(() => {
         // 상대가 연결되지 않았을 때 연결 중이라는 메시지를 받음
         socket.on('waitingForMatch', (message) => {
             setMessages((prevMessages) => [...prevMessages, message]);
