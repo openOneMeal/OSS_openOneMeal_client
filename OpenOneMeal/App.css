@@ -1,0 +1,82 @@
+html,
+body {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+}
+#root {
+    width: 100vw;
+    height: 100vh;
+}
+
+/* Sign In and Sign Up */
+.SignUp, .SignIn {
+    height: 100%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.email_textfield,
+.password_textfield,
+.submit_button {
+    margin: 10px;
+}
+
+.signup_link {
+    text-align: center;
+    color: gray;
+    margin: 30px;
+}
+
+.SignUp .head h5, .SignIn .head h5 {
+    color: gray;
+    margin: 30px;
+}
+
+/* Matching Page */
+.Matching {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.MatchingForm {
+    width: 100%;
+    max-width: 500px;
+    margin: auto;
+}
+
+/* Chat Window */
+.chat-window {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    padding: 20px;
+}
+
+.messages {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-bottom: 20px;
+}
+
+.message {
+    margin: 10px 0;
+}
+
+.message-input {
+    display: flex;
+    align-items: center;
+}
+
+.message-input .MuiTextField-root {
+    flex-grow: 1;
+    margin-right: 10px;
+}
