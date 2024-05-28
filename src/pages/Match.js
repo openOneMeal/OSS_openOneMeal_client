@@ -9,13 +9,23 @@ const Match = () => {
 
   const handleMatch = async () => {
     try {
-      const response = await axios.put('https://open-one-meal-server-e0778adebef6.herokuapp.com/api/match', { email: userEmail });
+      const response = await axios.put(
+        "https://open-one-meal-server-e0778adebef6.herokuapp.com/api/match",
+        { email: userEmail }
+      );
+
       if (response.status === 200) {
         alert('매칭 완료');
         nav('/chat', {
           state: { userEmail: userEmail },
-        });
-      }
+      });}
+      
+      else if (response.status === 204) {
+        alert('이미 매칭됨');
+        nav('/chat', {
+          state: { userEmail: userEmail },
+      });}
+      
     } catch (error) {
       alert('매칭 오류 발생, 매칭 실패');
     }

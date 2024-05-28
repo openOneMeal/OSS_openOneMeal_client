@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import io from 'socket.io-client';
+const socket = io('https://open-one-meal-server-e0778adebef6.herokuapp.com', {
+        transports: ['websocket', 'polling'],
+        withCredentials: true,
+    });
 
 const Chat = () => {
     const location = useLocation();
@@ -8,36 +12,39 @@ const Chat = () => {
 
     const [messages, setMessages] = useState([]);
     const [input, setInput] = useState('');
-    const socket = io('https://open-one-meal-server-e0778adebef6.herokuapp.com', {
-            query: { email: userEmail }
-        });
 
     useEffect(() => {
+        // 서버에 사용자 등록
+        socket.emit('register', { userEmail });
+
         // 상대가 연결되지 않았을 때 연결 중이라는 메시지를 받음
         socket.on('waitingForMatch', (message) => {
+            console.log('상대 대기', message);
             setMessages((prevMessages) => [...prevMessages, message]);
         });
         
         // 상대가 연결되면 채팅이 연결됐다고 메시지를 받음
         socket.on('matchConnected', (message) => {
+            console.log('상대와 연결 완료', message);
             setMessages((prevMessages) => [...prevMessages, message]);
         })
         
         // 상대로부터 메시지를 받음
         socket.on('receiveMessage', (message) => {
+            console.log('메시지 수신', message);
             setMessages((prevMessages) => [...prevMessages, message]);
         });
 
-        // 연결이 끊기면 연결 종료 메시지를 띄움
-        socket.on('disconnect',
-            setMessages((prevMessages) => [...prevMessages], "연결이 종료되었습니다."));
-
         return () => {
-            socket.disconnet();
+            socket.emit('disconnect');
+            socket.disconnect();
         };
-    }, []);
+
+    }, [userEmail]);
 
     const sendMessage = () => {
+        console.log('메시지 전송', input);
+        setMessages((prevMessages) => [...prevMessages, input]);
         socket.emit('sendMessage', input);
         setInput('');
     };
