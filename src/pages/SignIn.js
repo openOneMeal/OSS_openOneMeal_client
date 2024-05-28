@@ -53,7 +53,7 @@ const SignIn = () => {
             );
 
             if (response.data.status === 200) {
-                nav("/main", {
+                nav("/match", {
                     state: { userEmail: sendData.email },
                 });
             } else if (response.data.status === 401) {
