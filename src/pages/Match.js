@@ -1,9 +1,11 @@
 import React from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
-const Match = ({ userEmail }) => {
+const Match = () => {
   const nav = useNavigate();
+  const location = useLocation();
+  const { userEmail } = location.state;
 
   const handleMatch = async () => {
     try {

@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import io from 'socket.io-client';
 
-const Chat = ({ userEmail }) => {
+const Chat = () => {
+    const location = useLocation();
+    const { userEmail } = location.state;
+
     const [messages, setMessages] = useState([]);
     const [input, setInput] = useState('');
     const socket = io('https://open-one-meal-server-e0778adebef6.herokuapp.com', {
