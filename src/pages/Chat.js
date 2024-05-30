@@ -85,7 +85,7 @@ const ChatContainer = styled.div`
     width: 100%;
     max-width: 600px;
     margin: 0 auto;
-    background: #f5f5f5;
+    background: #ffffff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     overflow: hidden;
@@ -95,12 +95,12 @@ const MessagesContainer = styled.div`
     flex: 1;
     padding: 20px;
     overflow-y: auto;
-    background: #fff;
+    background: #ffffff;
 `;
 
 const Message = styled.div`
-    background: ${({ isMine }) => (isMine ? '#daf8da' : '#f1f0f0')};
-    color: #333;
+    background: ${({ isMine }) => (isMine ? '#9c27b0' : '#f1f0f0')};
+    color: ${({ isMine }) => (isMine ? '#ffffff' : '#333')};
     padding: 10px;
     margin-bottom: 10px;
     border-radius: 10px;
@@ -112,7 +112,7 @@ const Message = styled.div`
 const InputContainer = styled.div`
     display: flex;
     padding: 10px;
-    background: #fff;
+    background: #ffffff;
     border-top: 1px solid #ddd;
 `;
 
@@ -127,14 +127,14 @@ const MessageInput = styled.input`
 
 const SendButton = styled.button`
     padding: 10px 20px;
-    background: #007bff;
-    color: #fff;
+    background: #9c27b0;
+    color: #ffffff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
 
     &:hover {
-        background: #0056b3;
+        background: #7b1fa2;
     }
 `;
