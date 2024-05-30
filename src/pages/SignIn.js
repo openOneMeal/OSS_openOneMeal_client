@@ -52,11 +52,12 @@ const SignIn = () => {
                 sendData
             );
 
-            if (response.data.status === 200) {
+            if (response.status === 200) {
+                console.log("로그인 성공, match 페이지로 이동");
                 nav("/match", {
-                    state: { userEmail: sendData.email },
+                    state: { userId: response.data.userId, userName: response.data.userName },
                 });
-            } else if (response.data.status === 401) {
+            } else if (response.status === 401) {
                 setShowModal(true);
             }
         } catch (error) {

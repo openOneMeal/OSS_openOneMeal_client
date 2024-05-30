@@ -4,34 +4,30 @@ import io from 'socket.io-client';
 const socket = io('https://open-one-meal-server-e0778adebef6.herokuapp.com', {
         transports: ['websocket', 'polling'],
         withCredentials: true,
+        reconnectionAttempts: 10,
+        reconnectionDelay: 2000,
     });
 
 const Chat = () => {
     const location = useLocation();
-    const { userEmail } = location.state;
+    const { userId, userName } = location.state;
 
     const [messages, setMessages] = useState([]);
     const [input, setInput] = useState('');
 
     useEffect(() => {
         // 서버에 사용자 등록
-        socket.emit('register', { userEmail });
+        socket.emit('register', { userId });
 
-        // 상대가 연결되지 않았을 때 연결 중이라는 메시지를 받음
-        socket.on('waitingForMatch', (message) => {
-            console.log('상대 대기', message);
-            setMessages((prevMessages) => [...prevMessages, message]);
-        });
-        
-        // 상대가 연결되면 채팅이 연결됐다고 메시지를 받음
-        socket.on('matchConnected', (message) => {
-            console.log('상대와 연결 완료', message);
-            setMessages((prevMessages) => [...prevMessages, message]);
+        // 이전 메시지 불러오기
+        socket.on('loadMessages', (chatLogs) => {
+            console.log('메시지 로딩');
+            setMessages(chatLogs);
         })
-        
+
         // 상대로부터 메시지를 받음
         socket.on('receiveMessage', (message) => {
-            console.log('메시지 수신', message);
+            console.log('메시지 수신');
             setMessages((prevMessages) => [...prevMessages, message]);
         });
 
@@ -40,20 +36,29 @@ const Chat = () => {
             socket.disconnect();
         };
 
-    }, [userEmail]);
+    }, []);
 
     const sendMessage = () => {
-        console.log('메시지 전송', input);
-        setMessages((prevMessages) => [...prevMessages, input]);
-        socket.emit('sendMessage', input);
+        console.log('메시지 전송');
+
+        // 이름과 메시지를 함께 전송할 객체
+        const message = { sender: userName, message: input }
+
+        // 현재 채팅에 내 메시지 업데이트
+        setMessages((prevMessages) => [...prevMessages, message]);
+
+        // 메시지 객체 전송
+        socket.emit('sendMessage', message);
         setInput('');
     };
 
     return (
         <div>
           <div>
-            {messages.map((msg, index) => (
-              <div key={index}>{msg}</div>
+            {messages.map((message, index) => (
+              <div key={index}>
+                <p><strong>{message.sender}</strong> {message.message}</p>
+              </div>
             ))}
           </div>
           <input
