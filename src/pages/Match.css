@@ -1,0 +1,39 @@
+/* Match.css */
+
+/* 매치 컨테이너 스타일 */
+.match-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* 매칭 수락 버튼 스타일 */
+.accept-button {
+  padding: 10px 20px;
+  background-color: #4caf50; /* 초록색 */
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+/* 매칭 거절 버튼 스타일 */
+.reject-button {
+  padding: 10px 20px;
+  background-color: #f44336; /* 빨간색 */
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* 대기 중 메시지 스타일 */
+.pending-message {
+  color: #333333;
+}
+
+/* 매칭 실패 메시지 스타일 */
+.not-matched-message {
+  color: #ff9800; /* 주황색 */
+}
