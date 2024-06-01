@@ -90,22 +90,23 @@ const Match = () => {
   };
 
   return (
-    <div>
+    <div className='match-container'>
       {matchState === 'choose' && (
         <div>
-          <button onClick={handleAcceptClick}>매칭 수락</button>
-          <button onClick={handleRejectClick}>매칭 거절</button>
+          <button className='accept-button' onClick={handleAcceptClick}>매칭 수락</button>
+          <button className='reject-button' onClick={handleRejectClick}>매칭 거절</button>
         </div>
+    
       )}
 
       {matchState === 'pending' && (
-        <div>
+        <div className='pending-message'>
           <p>상대의 응답을 대기 중입니다.</p>
         </div>
       )}
 
       {matchState === 'notMatched' && (
-        <div>
+        <div className='not-matched-message'>
           <p>내일 새롭게 매칭됩니다. 내일 다시 방문해주세요.</p>
         </div>
       )}

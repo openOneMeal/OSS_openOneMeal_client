@@ -53,10 +53,10 @@ const Chat = () => {
     };
 
     return (
-        <div>
-          <div>
+        <div classname ="chat-container" >
+          <div classname ="messages-container">
             {messages.map((message, index) => (
-              <div key={index}>
+              <div key={index} classname ="message">
                 <p><strong>{message.sender}</strong> {message.message}</p>
               </div>
             ))}

@@ -1,6 +1,6 @@
 /* Chat.css */
 
-/* 채팅 컨테이너 스타일 */
+/* 채팅 컨테이너 스타일 : 전체적인 가장 큰 박스*/
 .chat-container {
   width: 100%;
   max-width: 600px;
@@ -10,24 +10,29 @@
   border-radius: 10px;
 }
 
-/* 메시지 컨테이너 스타일 */
+/* 메시지 컨테이너 스타일 : 메세지 박스*/
 .messages-container {
   max-height: 300px;
   overflow-y: auto;
   padding: 10px;
 }
 
-/* 개별 메시지 스타일 */
+/* 개별 메시지 스타일 여기서 key={index}이게 뭔지 잘 모르겠다*/
 .message {
   margin-bottom: 10px;
 }
 
-/* 메시지 내용 스타일 */
+/* 메시지 내용 스타일 마진도 없고 제일 작은 박스가 메세지였는데 생략해도 */
 .message-content {
   margin: 0;
 }
 
-/* 입력 필드 스타일 */
+/* 입력 필드 스타일 이건 직접 추가해야하는거 아닌가? 
+input
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            이 부분 밑에*/
 .input-field {
   width: calc(100% - 80px); /* 전송 버튼 고려하여 너비 설정 */
   padding: 10px;
@@ -36,7 +41,9 @@
   border-radius: 5px;
 }
 
-/* 전송 버튼 스타일 */
+/* 전송 버튼 스타일
+역시나 직접 추가?
+button onClick={sendMessage} */
 .send-button {
   padding: 10px 20px;
   background-color: #9c27b0;
@@ -45,3 +52,10 @@
   border-radius: 5px;
   cursor: pointer;
 }
+
+/*추가로 부트스트랩을 사용해서 더 ui를 멋지게 꾸며주길 바라는 것 같은데 채팅외에 
+메뉴등을 추가해서
+아... 가능할까
+일단은 채팅 기능이라도 좀 어떻게 해보고
+그 뒤는 조언을좀 얻어보자
+*/

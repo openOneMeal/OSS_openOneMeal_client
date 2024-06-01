@@ -5,17 +5,19 @@
   max-width: 600px;
   margin: 0 auto;
   padding: 20px;
+  /*중간에 위치하도록 */
 }
 
 /* 매칭 수락 버튼 스타일 */
 .accept-button {
   padding: 10px 20px;
-  background-color: #9c27b0; /* 초록색 */
+  background-color: #9c27b0; /* 보라색 */
   color: #ffffff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   margin-right: 10px;
+  /*여기도 역시 센터 추가*/
 }
 
 /* 매칭 거절 버튼 스타일 */
@@ -26,11 +28,13 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  /*수락거절을 따로 넣고 싶었는데 그게 인되는 것 같아서 멘트만 바꾸고 나머지는 같게 통일 시키는 것이 어떤가*/
 }
 
 /* 대기 중 메시지 스타일 */
 .pending-message {
   color: #333333;
+  /*class와 classname이 다른점이 뭐진 알아야함*/
 }
 
 /* 매칭 실패 메시지 스타일 */
