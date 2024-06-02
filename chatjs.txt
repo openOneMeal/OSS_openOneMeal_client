@@ -1,0 +1,96 @@
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import io from 'socket.io-client';
+import './Chat.css';
+
+const socket = io('https://open-one-meal-server-e0778adebef6.herokuapp.com', {  // 소켓 연결 설정
+    transports: ['websocket', 'polling'],
+    withCredentials: true,
+    reconnectionAttempts: 10,
+    reconnectionDelay: 2000,
+});
+
+const Chat = () => {
+    const location = useLocation();
+    const { userId, userName } = location.state;
+
+    const [messages, setMessages] = useState([]);
+    const [input, setInput] = useState('');
+
+    useEffect(() => {
+        socket.emit('register', { userId });  // 소켓 이벤트 등록
+
+        socket.on('loadMessages', (chatLogs) => {
+            setMessages(chatLogs);  // 메시지 로드 이벤트
+        });
+
+        socket.on('receiveMessage', (message) => {
+            setMessages((prevMessages) => [...prevMessages, message]);  // 메시지 수신 이벤트
+        });
+
+        return () => {
+            socket.emit('disconnect');  // 소켓 연결 해제
+            socket.disconnect();
+        };
+    }, []);
+
+    const sendMessage = () => {
+        const message = { sender: userName, message: input };
+        setMessages((prevMessages) => [...prevMessages, message]);  // 메시지 전송
+        socket.emit('sendMessage', message);
+        setInput('');
+    };
+
+    const renderMessage = (message, index) => {
+        return message.sender === userName ? (
+            <div className="outgoing_msg" key={index}>  {/* 송신 메시지 스타일 */}
+                <div className="sent_msg">
+                    <p>{message.message}</p>
+                </div>
+            </div>
+        ) : (
+            <div className="incoming_msg" key={index}>  {/* 수신 메시지 스타일 */}
+                <div className="incoming_msg_img">
+                    <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil" />
+                </div>
+                <div className="received_msg">
+                    <div className="received_withd_msg">
+                        <p>{message.message}</p>
+                    </div>
+                </div>
+            </div>
+        );
+    };
+
+    return (
+        <div className="container">
+            <h3 className="text-center">Messaging</h3>
+            <div className="messaging">
+                <div className="inbox_msg">
+                    <div className="mesgs">
+                        <div className="msg_history">
+                            {messages.map((message, index) => renderMessage(message, index))}
+                        </div>
+                        <div className="type_msg">
+                            <div className="input_msg_write">
+                                <input
+                                    type="text"
+                                    className="write_msg"
+                                    placeholder="Type a message"
+                                    value={input}
+                                    onChange={(e) => setInput(e.target.value)}
+                                />
+                                <button className="msg_send_btn" type="button" onClick={sendMessage}>
+                                    <i className="fa fa-paper-plane-o" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p className="text-center top_spac">Design by <a target="_blank" href="https://www.linkedin.com/in/sunil-rajput-nattho-singh/">Sunil Rajput</a></p>
+            </div>
+        </div>
+    );
+};
+
+export default Chat;
