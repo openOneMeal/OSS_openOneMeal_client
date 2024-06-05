@@ -122,3 +122,45 @@ body {
   margin-left: 10px;
   cursor: pointer;
 }
+
+/* 미션 리스트 컨테이너 스타일 */
+.mission-container {
+  width: 100%;
+  max-width: 300px; /* 적절한 너비 조정 */
+  margin: 20px auto; /* 중앙 정렬 */
+  padding: 20px;
+  border: 2px solid #9c27b0;
+  border-radius: 10px;
+}
+
+/* 미션 리스트 스타일 */
+.mission-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+/* 미션 아이템 스타일 */
+.mission-item {
+  margin-bottom: 10px;
+}
+
+/* 미션 내용 스타일 */
+.mission-content {
+  margin: 0;
+}
+
+/* 미션 수락 버튼 스타일 */
+.accept-button,
+.reject-button {
+  padding: 5px 10px;
+  background-color: #9c27b0;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* 미션 수락 버튼 스타일 */
+.reject-button {
+  background-color: #f44336;
+}

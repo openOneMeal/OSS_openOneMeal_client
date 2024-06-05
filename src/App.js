@@ -1,3 +1,4 @@
+import React from 'react';
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import SignUp from "./pages/SignUp";
@@ -6,6 +7,8 @@ import Main from "./pages/Main";
 import SignIn from "./pages/SignIn";
 import Match from "./pages/Match";
 import Chat from "./pages/Chat";
+import MissionList from "./pages/MissionList"; // 미션 리스트 컴포넌트 임포트
+
 function App() {
     return (
         <BrowserRouter>

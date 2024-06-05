@@ -1,43 +1,76 @@
-/* Match.css */
-
 /* 매치 컨테이너 스타일 */
 .match-container {
-  max-width: 600px;
-  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
   padding: 20px;
-  /*중간에 위치하도록 */
+  box-sizing: border-box;
+  text-align: center;
+  background-color: #ffffff; /* 기본 배경 색 */
+}
+
+/* 매칭 화면 이미지 스타일 */
+.match-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* 버튼 컨테이너 스타일 */
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  margin-top: 20px;
+}
+
+/* 버튼 공통 스타일 */
+.button {
+  padding: 10px 20px;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
 }
 
 /* 매칭 수락 버튼 스타일 */
 .accept-button {
-  padding: 10px 20px;
   background-color: #9c27b0; /* 보라색 */
-  color: #ffffff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-right: 10px;
-  /*여기도 역시 센터 추가*/
+}
+
+.accept-button:hover {
+  background-color: #732d91; /* 호버 시 색상 변경 */
 }
 
 /* 매칭 거절 버튼 스타일 */
 .reject-button {
-  padding: 10px 20px;
   background-color: #f44336; /* 빨간색 */
-  color: #ffffff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  /*수락거절을 따로 넣고 싶었는데 그게 인되는 것 같아서 멘트만 바꾸고 나머지는 같게 통일 시키는 것이 어떤가*/
+}
+
+.reject-button:hover {
+  background-color: #c0392b; /* 호버 시 색상 변경 */
 }
 
 /* 대기 중 메시지 스타일 */
 .pending-message {
   color: #333333;
-  /*class와 classname이 다른점이 뭐진 알아야함*/
+  font-size: 18px;
+  text-align: center;
+  margin-top: 20px;
 }
 
-/* 매칭 실패 메시지 스타일 */
 .not-matched-message {
-  color: #ff9800; /* 주황색 */
+  text-align: center;
+  font-size: 1.5em;
+  margin-top: 20px;
 }

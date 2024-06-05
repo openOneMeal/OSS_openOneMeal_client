@@ -13,9 +13,39 @@
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <title>React App</title>
+
+    <!-- 채팅 시스템 JavaScript 파일 추가 -->
+    <script src="Chat.js"></script>
+    <!-- 채팅 시스템 JavaScript 파일 추가 끝 -->
+
+    <!-- 채팅 시스템 CSS 파일 추가 -->
+    <link href="Chat.css" rel="stylesheet">
+    <!-- 채팅 시스템 CSS 파일 추가 끝 -->
+
+   
+    <script src="MissionList.js"></script>
+   
+
+    <link href="MissionList.css" rel="stylesheet">
+   
 </head>
 <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
+    
+    <!-- 패널 리스트 그룹 -->
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"></h3>
+            </div>   
+            <ul class="list-group" id="mission-list">
+              
+            </ul>
+        </div>
+    </div>
+    <!-- 패널 리스트 그룹 끝 -->
+
+    <!-- 채팅 창 -->
     <div id="root"></div>
 </body>
 </html>
