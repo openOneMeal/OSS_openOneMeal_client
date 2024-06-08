@@ -150,5 +150,42 @@ p {
     font-size: 24px; /* 텍스트의 크기 조정 */
     font-weight: bold; /* 굵은 텍스트 설정 */
     text-align: center; /* 가운데 정렬 */
-  }
-  
+}
+
+/* 프로필 페이지 스타일 */
+.white-box {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0.5px 0.5px 2px 1px #eee;
+}
+
+.profile-simple img {
+    max-width: 100px;
+    border-radius: 50%;
+}
+
+.profile-simple h3 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.profile-simple p {
+    margin: 5px 0;
+}
+
+.profile-detail p {
+    margin: 0;
+}
+
+.pill {
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 5px;
+    background-color: #e0e0e0;
+    border-radius: 20px;
+}
+
+.fa-location-dot {
+    margin-right: 5px;
+}

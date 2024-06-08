@@ -7,8 +7,7 @@ import Main from "./pages/Main";
 import SignIn from "./pages/SignIn";
 import Match from "./pages/Match";
 import Chat from "./pages/Chat";
-import MissionList from "./pages/MissionList"; // 미션 리스트 컴포넌트 임포트
-
+import MissionList from "./pages/MissionList"; 
 function App() {
     return (
         <BrowserRouter>

@@ -90,21 +90,47 @@ const Match = () => {
 
   return (
     <div className='match-container'>
-      {matchState === 'accepted' && (
-        <img src={matchImageAccept} alt="매칭 수락" className='match-image' />
-      )}
-
-      {matchState === 'rejected' && (
-        <img src={matchImageReject} alt="매칭 거절" className='match-image' />
-      )}
-
-      {matchState === 'choose' && (
-        <div className='button-container'>
-          <button className='button accept-button' onClick={handleAcceptClick}>매칭 수락</button>
-          <button className='button reject-button' onClick={handleRejectClick}>매칭 거절</button>
+      {/* 프로필 정보 */}
+      <div className="container white-box">
+        <div className="row">
+          <div className="col-md-8 profile-simple">
+            <div className="d-flex">
+              <div className="flex-shrink-0">
+                <img src="../img/증명사진1.jpg" alt="프로필 사진" />
+              </div>
+              <div className="flex-grow-1 ms-3">
+                <h3>Hyewon</h3>
+                <p>Front-end Designer</p>
+                <div>
+                  <i className="fa-solid fa-location-dot d-inline-block" style={{ color: '#6fbaf8' }}></i>
+                  <span style={{ color: '#6fbaf8' }}>서울시 동대문구</span>
+                </div>
+                <button className="btn text-white mt-3" style={{ backgroundColor: '#6fbaf8' }}>연락하기</button>
+              </div>
+            </div>
+          </div>
+          <div className="col-md-4 border-left">
+            <div className="row profile-detail">
+              <div className="col-6"><p>Location</p></div>
+              <div className="col-6"><p>서울 근무</p></div>
+              <div className="col-6"><p>Age</p></div>
+              <div className="col-6"><p>25</p></div>
+              <div className="col-6"><p>Experience</p></div>
+              <div className="col-6"><p>신입</p></div>
+              <div className="col-6"><p>School</p></div>
+              <div className="col-6"><p>서일대학교 컴퓨터전자공학과</p></div>
+            </div>
+          </div>
         </div>
-      )}
+      </div>
 
+      {/* 매칭 수락 및 거절 버튼 */}
+      <div className='button-container'>
+        <button className='button accept-button' onClick={handleAcceptClick}>매칭 수락</button>
+        <button className='button reject-button' onClick={handleRejectClick}>매칭 거절</button>
+      </div>
+
+      {/* 매칭 상태에 따른 메시지 */}
       {matchState === 'pending' && (
         <div className='pending-message'>
           <p>상대의 응답을 대기 중입니다.</p>
