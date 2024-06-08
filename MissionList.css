@@ -1,0 +1,14 @@
+.container {
+    display: flex;
+  }
+  
+  .chat-container {
+    flex: 1; /* 채팅 창이 남은 공간을 모두 차지하도록 함 */
+    /* 원하는 스타일 추가 */
+  }
+  
+  .mission-container {
+    flex: 1; /* 미션 리스트가 남은 공간을 모두 차지하도록 함 */
+    /* 원하는 스타일 추가 */
+  }
+  
